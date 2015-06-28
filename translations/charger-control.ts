@@ -8,23 +8,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>off</source>
+        <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>phone only</source>
+        <source>Phone only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>charging</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current: 494mA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Power: 1974mW</source>
+        <source>Charging</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

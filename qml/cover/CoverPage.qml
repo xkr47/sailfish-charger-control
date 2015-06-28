@@ -34,9 +34,9 @@ import Sailfish.Silica 1.0
 CoverBackground {
     id: cover
     property int mode: 2
-    property var offText: qsTr("off")
-    property var noChargeText: qsTr("phone only")
-    property var chargeText: qsTr("charging")
+    property var offText: qsTr("Off")
+    property var noChargeText: qsTr("Phone only")
+    property var chargeText: qsTr("Charging")
     property double current: 494
     property double power: 1974.1
 
