@@ -49,7 +49,6 @@ CoverBackground {
             font.pixelSize: Theme.fontSizeSmall
         }
         Label {
-            anchors.topMargin: 5
             text: cover.mode == 0 ? cover.offText : cover.mode == 1 ? cover.noChargeText : cover.chargeText
             font.pixelSize: Theme.fontSizeExtraSmall
             anchors.horizontalCenter: parent.horizontalCenter
@@ -62,7 +61,6 @@ CoverBackground {
             id: currentPower
             text: qsTr("Current: 494mA")
             font.pixelSize: Theme.fontSizeExtraSmall
-            anchors.topMargin: 5
         }
         Label {
             id: labelPower
