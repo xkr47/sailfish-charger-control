@@ -37,16 +37,20 @@ CoverBackground {
     property var offText: qsTr("off")
     property var noChargeText: qsTr("phone only")
     property var chargeText: qsTr("charging")
+    property double current: 494
+    property double power: 1974.1
 
     Column {
         anchors.top: parent.top
         anchors.left: parent.left
-        anchors.topMargin: 6
-        anchors.leftMargin: 8
+        anchors.topMargin: Theme.paddingSmall
+        anchors.leftMargin: Theme.paddingSmall
         width: parent.width - (2 * anchors.leftMargin)
         Label {
             text: qsTr("Charger Control")
             font.pixelSize: Theme.fontSizeSmall
+            font.bold: true
+            anchors.horizontalCenter: parent.horizontalCenter
         }
         Label {
             text: cover.mode == 0 ? cover.offText : cover.mode == 1 ? cover.noChargeText : cover.chargeText
@@ -57,15 +61,13 @@ CoverBackground {
             source: cover.mode == 0 ? "charger-control-off.png" : cover.mode == 1 ? "charger-control-nocharge.png" : "charger-control-charge.png"
             anchors.horizontalCenter: parent.horizontalCenter
         }
-        Label {
-            id: currentPower
-            text: qsTr("Current: 494mA")
-            font.pixelSize: Theme.fontSizeExtraSmall
+        Property {
+            label: "Current:"
+            value: current + " mA"
         }
-        Label {
-            id: labelPower
-            text: qsTr("Power: 1974mW")
-            font.pixelSize: Theme.fontSizeExtraSmall
+        Property {
+            label: "Power:"
+            value: power + " mW"
         }
     }
     CoverActionList {
