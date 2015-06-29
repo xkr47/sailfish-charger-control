@@ -182,7 +182,7 @@ CoverBackground {
         }
         Property {
             label: qsTr("Capacity:")
-            value: capacity.toFixed(0) + "%"
+            value: capacity.toFixed(0) + " %"
         }
     }
     CoverActionList {
