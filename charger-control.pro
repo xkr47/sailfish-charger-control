@@ -35,8 +35,7 @@ OTHER_FILES += qml/charger-control.qml \
     qml/cover/charger-control-off.png \
     qml/cover/Property.qml \
     systemd/charger-control-permissions.service \
-    systemd/charger-control-permissions.sh \
-    charger-control-wrapper.sh
+    systemd/charger-control-permissions.sh
 
 # to disable building translations every time, comment out the
 # following CONFIG line
