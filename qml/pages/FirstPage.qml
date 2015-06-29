@@ -63,9 +63,15 @@ Page {
             }
             Label {
                 x: Theme.paddingLarge
-                text: qsTr("This app is controlled using the cover actions")
+                text: qsTr("This app is controlled using the cover")
                 color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeExtraLarge
+                font.pixelSize: Theme.fontSizeSmall
+            }
+            Label {
+                x: Theme.paddingLarge
+                text: qsTr("actions.")
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeSmall
             }
         }
     }
