@@ -28,7 +28,9 @@ OTHER_FILES += qml/charger-control.qml \
     qml/cover/charger-control-charge.png \
     qml/cover/charger-control-nocharge.png \
     qml/cover/charger-control-off.png \
-    qml/cover/Property.qml
+    qml/cover/Property.qml \
+    rpm/charger-control-permissions.service \
+    rpm/charger-control-permissions.sh
 
 # to disable building translations every time, comment out the
 # following CONFIG line

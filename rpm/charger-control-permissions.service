@@ -1,0 +1,11 @@
+[Unit]
+Description=Update sysfs file permissions for "Charger Control"
+Requires=dbus.socket
+After=dbus.socket
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/charger-control-permissions
+
+[Install]
+WantedBy=pre-user-session.target
