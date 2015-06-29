@@ -61,39 +61,48 @@ desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
    %{buildroot}%{_datadir}/applications/*.desktop
 
-%post
-
-# >> post
-# if upgrade, run before old package is uninstalled
+%pre
+# >> pre
 # see https://fedoraproject.org/wiki/Packaging:ScriptletSnippets
-# systemd parts taken partially from http://cgit.freedesktop.org/systemd/systemd/tree/src/core/macros.systemd.in
+# if upgrade, run before old package is uninstalled
 if [ $1 -eq 1 ] ; then
-        # Initial installation
-        grep "^charger-control:" /etc/group > /dev/null || groupadd charger-control
-        systemctl enable charger-control-permissions.service
-        systemctl start charger-control-permissions.service
+  # Initial installation
+  grep "^charger-control:" /etc/group > /dev/null || groupadd charger-control
 fi
-# << post
+# << pre
 
 %preun
-
 # >> preun
 # if upgrade, this is run after new package installation is complete
+# systemd parts taken partially from http://cgit.freedesktop.org/systemd/systemd/tree/src/core/macros.systemd.in
 if [ $1 -eq 0 ] ; then
-        # Package removal, not upgrade
-        systemctl --no-reload charger-control-permissions.service > /dev/null 2>&1 || :
-        systemctl stop charger-control-permissions.service > /dev/null 2>&1 || :
-        ! grep "^charger-control:" /etc/group > /dev/null || groupdel charger-control
+  # Package removal, not upgrade
+  systemctl --no-reload disable charger-control-permissions.service || :
+  systemctl stop charger-control-permissions.service || :
 fi
 # << preun
 
-%postun
+%post
+# >> post
+# if upgrade, run before old package is uninstalled
+if [ $1 -eq 1 ] ; then
+  # Initial installation
+  systemctl enable /usr/lib/systemd/user/charger-control-permissions.service
+  systemctl start charger-control-permissions.service
+fi
+# << post
 
+%postun
 # >> postun
+# if upgrade, this is run after new package installation is complete
 systemctl daemon-reload >/dev/null 2>&1 || :
+if [ $1 -eq 0 ] ; then
+  # Package removal, not upgrade
+  ! grep "^charger-control:" /etc/group > /dev/null || groupdel charger-control
+fi
 if [ $1 -ge 1 ] ; then
-        # Package upgrade, not uninstall
-        systemctl try-restart charger-control-permissions.service >/dev/null 2>&1 || :
+  # Package upgrade, not uninstall
+  systemctl try-restart charger-control-permissions.service || :
 fi
 # << postun
 
@@ -103,5 +112,10 @@ fi
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/86x86/apps/%{name}.png
+%{_libdir}/systemd/user/charger-control-permissions.service
+%{_libexecdir}/charger-control-permissions.sh
 # >> files
+# NOTE: setgid application!
+%attr(2755, root, charger-control) %{_bindir}/%{name}
+%attr(700, root, root) %{_libexecdir}/%{name}-permissions.sh
 # << files

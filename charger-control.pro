@@ -42,3 +42,10 @@ CONFIG += sailfishapp_i18n
 # modify the localized app name in the the .desktop file.
 TRANSLATIONS += translations/charger-control-de.ts
 
+systemd_service.path = /usr/lib/systemd/user
+systemd_service.files = rpm/*.service
+INSTALLS += systemd_service
+
+systemd_service_scripts.path = /usr/libexec
+systemd_service_scripts.files = rpm/*.sh
+INSTALLS += systemd_service_scripts

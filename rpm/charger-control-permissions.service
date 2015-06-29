@@ -5,7 +5,7 @@ After=dbus.socket
 
 [Service]
 Type=oneshot
-ExecStart=/usr/libexec/charger-control-permissions
+ExecStart=/usr/libexec/charger-control-permissions.sh
 
 [Install]
 WantedBy=pre-user-session.target
