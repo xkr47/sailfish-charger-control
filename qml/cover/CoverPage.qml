@@ -107,7 +107,7 @@ CoverBackground {
 
     Timer {
         id: refreshTimer
-        interval: 500
+        interval: 1000
         running: coverStatus.status === 2
         repeat: true
         onTriggered: {
