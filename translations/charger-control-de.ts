@@ -27,6 +27,10 @@
         <source>Power:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Capacity:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FirstPage</name>

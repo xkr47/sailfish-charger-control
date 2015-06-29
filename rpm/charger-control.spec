@@ -25,6 +25,7 @@ BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  desktop-file-utils
 
 %description
@@ -66,8 +67,8 @@ desktop-file-install --delete-original       \
 # see https://fedoraproject.org/wiki/Packaging:ScriptletSnippets
 # if upgrade, run before old package is uninstalled
 if [ $1 -eq 1 ] ; then
-  # Initial installation
-  grep "^charger-control:" /etc/group > /dev/null || groupadd charger-control
+# Initial installation
+grep "^charger-control:" /etc/group > /dev/null || groupadd charger-control
 fi
 # << pre
 
@@ -76,9 +77,9 @@ fi
 # if upgrade, this is run after new package installation is complete
 # systemd parts taken partially from http://cgit.freedesktop.org/systemd/systemd/tree/src/core/macros.systemd.in
 if [ $1 -eq 0 ] ; then
-  # Package removal, not upgrade
-  systemctl --no-reload disable charger-control-permissions.service || :
-  systemctl stop charger-control-permissions.service || :
+# Package removal, not upgrade
+systemctl --no-reload disable charger-control-permissions.service || :
+systemctl stop charger-control-permissions.service || :
 fi
 # << preun
 
@@ -86,9 +87,9 @@ fi
 # >> post
 # if upgrade, run before old package is uninstalled
 if [ $1 -eq 1 ] ; then
-  # Initial installation
-  systemctl enable /usr/lib/systemd/user/charger-control-permissions.service
-  systemctl start charger-control-permissions.service
+# Initial installation
+systemctl enable /usr/lib/systemd/user/charger-control-permissions.service
+systemctl start charger-control-permissions.service
 fi
 # << post
 
@@ -97,12 +98,12 @@ fi
 # if upgrade, this is run after new package installation is complete
 systemctl daemon-reload >/dev/null 2>&1 || :
 if [ $1 -eq 0 ] ; then
-  # Package removal, not upgrade
-  ! grep "^charger-control:" /etc/group > /dev/null || groupdel charger-control
+# Package removal, not upgrade
+! grep "^charger-control:" /etc/group > /dev/null || groupdel charger-control
 fi
 if [ $1 -ge 1 ] ; then
-  # Package upgrade, not uninstall
-  systemctl try-restart charger-control-permissions.service || :
+# Package upgrade, not uninstall
+systemctl try-restart charger-control-permissions.service || :
 fi
 # << postun
 

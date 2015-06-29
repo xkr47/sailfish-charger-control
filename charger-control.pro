@@ -15,10 +15,12 @@ TARGET = charger-control
 CONFIG += sailfishapp
 
 SOURCES += src/charger-control.cpp \
-    src/fileio.cpp
+    src/fileio.cpp \
+    src/coverstatus.cpp
 
 HEADERS += \
-    src/fileio.h
+    src/fileio.h \
+    src/coverstatus.h
 
 OTHER_FILES += qml/charger-control.qml \
     qml/cover/CoverPage.qml \
@@ -52,3 +54,5 @@ INSTALLS += systemd_service
 systemd_service_scripts.path = /usr/libexec
 systemd_service_scripts.files = rpm/*.sh
 INSTALLS += systemd_service_scripts
+
+QT += dbus

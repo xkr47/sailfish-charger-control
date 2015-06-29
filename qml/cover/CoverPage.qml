@@ -33,6 +33,7 @@ import Sailfish.Silica 1.0
 
 // project imports
 import FileIO 1.0
+import CoverStatus 1.0
 
 CoverBackground {
     id: cover
@@ -40,8 +41,11 @@ CoverBackground {
     property var offText: qsTr("Off")
     property var noChargeText: qsTr("Phone only")
     property var chargeText: qsTr("Charging")
-    property double current: 494
-    property double power: 1974.1
+    property double current: 0.111
+    property double power: 0.222
+    property double capacity: 110
+
+    // mode management
 
     FileIO {
         id: stateFile
@@ -66,11 +70,60 @@ CoverBackground {
 
     onModeChanged: {
         // NOTE: PM8921 must be written first
-        console.log("Mode changed to " + mode);
-        console.log("PM8921 write: "+ pm8921ChargerDisableFile.write(mode < 2 ? 1 : 0));
-        console.log("power_supply write: "+ powerSupplyChargerDisableFile.write(mode < 1 ? 1 : 0));
-        console.log("statefile: " + stateFile.write(mode));
+        //console.log("Mode changed to " + mode);
+        var stat1 = pm8921ChargerDisableFile.write(mode < 2 ? 1 : 0);
+        var stat2 = powerSupplyChargerDisableFile.write(mode < 1 ? 1 : 0);
+        if (stat1 && stat2) {
+          stateFile.write(mode);
+        } else {
+          mode = 0 + stateFile.read();
+        }
     }
+
+    // cover status updater
+
+    FileIO {
+        id: voltageNowFile
+        source: "/sys/devices/platform/msm_ssbi.0/pm8038-core/pm8921-charger/power_supply/battery/voltage_now"
+        onError: console.log("ERROR: voltage_now: ", msg)
+    }
+    FileIO {
+        id: currentNowFile
+        source: "/sys/devices/platform/msm_ssbi.0/pm8038-core/pm8921-charger/power_supply/battery/current_now"
+        onError: console.log("ERROR: current_now: ", msg)
+    }
+    FileIO {
+        id: capacityFile
+        source: "/sys/devices/platform/msm_ssbi.0/pm8038-core/pm8921-charger/power_supply/battery/capacity"
+        onError: console.log("ERROR: capacity: ", msg)
+    }
+
+    CoverStatus {
+        id: coverStatus
+        onStatusChanged: {
+            //console.log("Coverstatus = ", status);
+        }
+    }
+
+    Timer {
+        id: refreshTimer
+        interval: 500
+        running: coverStatus.status === 2
+        repeat: true
+        onTriggered: {
+            var tmp = currentNowFile.read();
+            current = tmp.length > 0 ? tmp / 1e6 : current + 0.00001;
+
+            tmp = voltageNowFile.read();
+            var voltage = tmp.length > 0 ? tmp / 1e6 : 1.111;
+            power = voltage * current;
+
+            tmp = capacityFile.read();
+            capacity = tmp.length > 0 ? tmp : 120;
+        }
+    }
+
+    // ui
 
     Column {
         anchors.top: parent.top
@@ -95,11 +148,15 @@ CoverBackground {
         }
         Property {
             label: qsTr("Current:")
-            value: current + " mA"
+            value: (current * 1e3).toFixed(2) + " mA"
         }
         Property {
             label: qsTr("Power:")
-            value: power + " mW"
+            value: (power * 1e3).toFixed(2) + " mW"
+        }
+        Property {
+            label: qsTr("Capacity:")
+            value: capacity.toFixed(0) + "%"
         }
     }
     CoverActionList {
