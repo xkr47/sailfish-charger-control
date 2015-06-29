@@ -34,8 +34,8 @@ OTHER_FILES += qml/charger-control.qml \
     qml/cover/charger-control-nocharge.png \
     qml/cover/charger-control-off.png \
     qml/cover/Property.qml \
-    rpm/charger-control-permissions.service \
-    rpm/charger-control-permissions.sh
+    systemd/charger-control-permissions.service \
+    systemd/charger-control-permissions.sh
 
 # to disable building translations every time, comment out the
 # following CONFIG line
@@ -48,11 +48,11 @@ CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/charger-control-de.ts
 
 systemd_service.path = /usr/lib/systemd/user
-systemd_service.files = rpm/*.service
+systemd_service.files = systemd/*.service
 INSTALLS += systemd_service
 
 systemd_service_scripts.path = /usr/libexec
-systemd_service_scripts.files = rpm/*.sh
+systemd_service_scripts.files = systemd/*.sh
 INSTALLS += systemd_service_scripts
 
 QT += dbus
