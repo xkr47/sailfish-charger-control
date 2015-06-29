@@ -19,7 +19,6 @@ SOURCES += src/charger-control.cpp
 OTHER_FILES += qml/charger-control.qml \
     qml/cover/CoverPage.qml \
     qml/pages/FirstPage.qml \
-    qml/pages/SecondPage.qml \
     rpm/charger-control.changes.in \
     rpm/charger-control.spec \
     rpm/charger-control.yaml \

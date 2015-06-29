@@ -39,6 +39,7 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
 
+        /*
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
             MenuItem {
@@ -46,7 +47,7 @@ Page {
                 onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
             }
         }
-
+        */
         // Tell SilicaFlickable the height of its content.
         contentHeight: column.height
 
@@ -58,11 +59,11 @@ Page {
             width: page.width
             spacing: Theme.paddingLarge
             PageHeader {
-                title: qsTr("UI Template")
+                title: qsTr("Charger Control")
             }
             Label {
                 x: Theme.paddingLarge
-                text: qsTr("Hello Sailors")
+                text: qsTr("This app is controlled using the cover actions")
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeExtraLarge
             }
