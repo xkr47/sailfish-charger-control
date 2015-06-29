@@ -108,13 +108,9 @@ CoverBackground {
 
     CoverStatus {
         id: coverStatus
-        onStatusChanged: {
-            //console.log("Coverstatus = ", status);
-        }
     }
 
     Timer {
-        id: refreshTimer
         interval: 1000
         running: coverStatus.status === 2
         repeat: true
@@ -185,6 +181,7 @@ CoverBackground {
             value: capacity.toFixed(0) + " %"
         }
     }
+
     CoverActionList {
         id: coverListOff
         enabled: cover.mode == 0
@@ -199,7 +196,6 @@ CoverBackground {
             onTriggered: cover.mode = 2
         }
     }
-
     CoverActionList {
         id: coverListNoCharge
         enabled: cover.mode == 1
@@ -214,7 +210,6 @@ CoverBackground {
             onTriggered: cover.mode = 2
         }
     }
-
     CoverActionList {
         id: coverListCharge
         enabled: cover.mode == 2
