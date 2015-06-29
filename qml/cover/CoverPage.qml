@@ -38,7 +38,6 @@ import CoverStatus 1.0
 CoverBackground {
     id: cover
     property int mode: 0 + stateFile.read() // 0=off, 1=phone, 2=charge
-    property string noChargeText: qsTr("Power phone only")
     property string status: "<charging?>"
     property string status2: "<usbcable?>"
     property double current: 1.111

@@ -8,10 +8,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Power phone only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current:</source>
         <translation type="unfinished"></translation>
     </message>
