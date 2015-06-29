@@ -128,8 +128,8 @@ CoverBackground {
             var statusTxt = statusFile.read();
             var usbTypeTxt = usbTypeFile.read();
 
-            if (usbTypeTxt === "USB") {
-                if (current > 0.05 && /Charging|Not charging|Full/.exec(statusTxt) !== null) {
+            if (/^USB/.exec(usbTypeTxt) !== null) {
+                if (current > 0.05 && /^(:Charging|Not charging|Full)$/.exec(statusTxt) !== null) {
                     ++dischargeSeconds;
                 } else {
                     dischargeSeconds = 0;
