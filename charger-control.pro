@@ -14,7 +14,11 @@ TARGET = charger-control
 
 CONFIG += sailfishapp
 
-SOURCES += src/charger-control.cpp
+SOURCES += src/charger-control.cpp \
+    src/fileio.cpp
+
+HEADERS += \
+    src/fileio.h
 
 OTHER_FILES += qml/charger-control.qml \
     qml/cover/CoverPage.qml \

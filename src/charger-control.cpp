@@ -33,10 +33,12 @@
 #endif
 
 #include <sailfishapp.h>
-
+#include "fileio.h"
 
 int main(int argc, char *argv[])
 {
+    qmlRegisterType<FileIO>("FileIO", 1, 0, "FileIO");
+
     // SailfishApp::main() will display "qml/template.qml", if you need more
     // control over initialization, you can use:
     //
