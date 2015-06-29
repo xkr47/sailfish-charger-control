@@ -38,9 +38,8 @@ import CoverStatus 1.0
 CoverBackground {
     id: cover
     property int mode: 0 + stateFile.read() // 0=off, 1=phone, 2=charge
-    property var offText: qsTr("Off")
-    property var noChargeText: qsTr("Phone only")
-    property var chargeText: qsTr("Charging")
+    property string noChargeText: qsTr("Power phone only")
+    property string status: "<unknown>"
     property double current: 1.111
     property double power: 1.222
     property double capacity: 110
@@ -55,13 +54,11 @@ CoverBackground {
             Qt.quit();
         }
     }
-
     FileIO {
         id: pm8921ChargerDisableFile
         source: "/sys/module/pm8921_charger/parameters/disabled"
         onError: console.log("ERROR: PM8921: ", msg)
     }
-
     FileIO {
         id: powerSupplyChargerDisableFile
         source: "/sys/class/power_supply/usb/charger_disable"
@@ -97,6 +94,11 @@ CoverBackground {
         source: "/sys/devices/platform/msm_ssbi.0/pm8038-core/pm8921-charger/power_supply/battery/capacity"
         onError: console.log("ERROR: capacity: ", msg)
     }
+    FileIO {
+        id: chargeTypeFile
+        source: "/sys/devices/platform/msm_ssbi.0/pm8038-core/pm8921-charger/power_supply/battery/status"
+        onError: console.log("ERROR: charge_type: ", msg)
+    }
 
     CoverStatus {
         id: coverStatus
@@ -120,6 +122,10 @@ CoverBackground {
 
             tmp = capacityFile.read();
             capacity = tmp.length > 0 ? tmp : 120;
+
+            tmp = chargeTypeFile.read();
+            // "Unknown", "Charging", "Discharging", "Not charging", "Full"
+            status = tmp.length > 0 ? tmp === "Not charging" ? noChargeText : tmp : "Simulated";
         }
     }
 
@@ -138,7 +144,7 @@ CoverBackground {
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Label {
-            text: cover.mode == 0 ? cover.offText : cover.mode == 1 ? cover.noChargeText : cover.chargeText
+            text: status
             font.pixelSize: Theme.fontSizeExtraSmall
             anchors.horizontalCenter: parent.horizontalCenter
         }

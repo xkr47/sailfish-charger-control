@@ -8,15 +8,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Phone only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Charging</source>
+        <source>Power phone only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
