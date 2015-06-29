@@ -12,7 +12,7 @@ Item {
     Label {
         id: labelComp
         text: "<missing label binding>"
-        color: Theme.secondaryHighlightColor
+        color: Theme.highlightColor
         font.pixelSize: Theme.fontSizeTiny
         anchors.left: parent.left
         anchors.right: parent.right
