@@ -35,7 +35,8 @@ OTHER_FILES += qml/charger-control.qml \
     qml/cover/charger-control-off.png \
     qml/cover/Property.qml \
     systemd/charger-control-permissions.service \
-    systemd/charger-control-permissions.sh
+    systemd/charger-control-permissions.sh \
+    charger-control-wrapper.sh
 
 # to disable building translations every time, comment out the
 # following CONFIG line
@@ -54,5 +55,9 @@ INSTALLS += systemd_service
 systemd_service_scripts.path = /usr/libexec
 systemd_service_scripts.files = systemd/*.sh
 INSTALLS += systemd_service_scripts
+
+wrapper_script.path = /usr/bin
+wrapper_script.files = charger-control-wrapper.sh
+INSTALLS += wrapper_script
 
 QT += dbus

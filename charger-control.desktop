@@ -2,7 +2,7 @@
 Type=Application
 X-Nemo-Application-Type=silica-qt5
 Icon=charger-control
-Exec=charger-control
+Exec=charger-control-wrapper.sh
 Name=charger-control
 # translation example:
 # your app name in German locale (de)
