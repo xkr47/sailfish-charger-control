@@ -39,7 +39,8 @@ CoverBackground {
     id: cover
     property int mode: 0 + stateFile.read() // 0=off, 1=phone, 2=charge
     property string noChargeText: qsTr("Power phone only")
-    property string status: "<unknown>"
+    property string status: "<charging?>"
+    property string status2: "<usbcable?>"
     property double current: 1.111
     property double power: 1.222
     property double capacity: 110
@@ -95,8 +96,13 @@ CoverBackground {
         onError: console.log("ERROR: capacity: ", msg)
     }
     FileIO {
-        id: chargeTypeFile
+        id: statusFile
         source: "/sys/devices/platform/msm_ssbi.0/pm8038-core/pm8921-charger/power_supply/battery/status"
+        onError: console.log("ERROR: charge_type: ", msg)
+    }
+    FileIO {
+        id: usbTypeFile
+        source: "/sys/devices/platform/msm_ssbi.0/pm8038-core/pm8921-charger/power_supply/usb/type"
         onError: console.log("ERROR: charge_type: ", msg)
     }
 
@@ -123,9 +129,17 @@ CoverBackground {
             tmp = capacityFile.read();
             capacity = tmp.length > 0 ? tmp : 120;
 
-            tmp = chargeTypeFile.read();
+            tmp = statusFile.read();
+            var tmp2 = usbTypeFile.read();
             // "Unknown", "Charging", "Discharging", "Not charging", "Full"
-            status = tmp.length > 0 ? tmp === "Not charging" ? noChargeText : tmp : "Simulated";
+            status = tmp.length > 0 ? tmp === "Full" ? "Battery full" : tmp : "Simulated";
+            status2 = tmp2.length > 0 ?
+                         tmp2 === "USB" ?
+                             status === "Discharging" ? "USB power not used"
+                           : status === "Not charging" ? "USB powers phone only"
+                           : ""
+                       : "USB cable disconnected"
+                   : "Simulated";
         }
     }
 
@@ -146,6 +160,12 @@ CoverBackground {
         Label {
             text: status
             font.pixelSize: Theme.fontSizeExtraSmall
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+        Label {
+            text: status2
+            font.pixelSize: Theme.fontSizeTiny
+            color: Theme.secondaryColor
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Image {
