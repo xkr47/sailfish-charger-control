@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 #X-Nemo-Application-Type=silica-qt5
-Icon=charger-control
+Icon=Charger Control
 Exec=charger-control
 Name=charger-control
 # translation example:
