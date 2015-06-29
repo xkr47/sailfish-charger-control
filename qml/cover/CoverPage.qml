@@ -41,8 +41,8 @@ CoverBackground {
     property var offText: qsTr("Off")
     property var noChargeText: qsTr("Phone only")
     property var chargeText: qsTr("Charging")
-    property double current: 0.111
-    property double power: 0.222
+    property double current: 1.111
+    property double power: 1.222
     property double capacity: 110
 
     // mode management
