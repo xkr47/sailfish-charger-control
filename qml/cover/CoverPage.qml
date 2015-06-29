@@ -114,24 +114,25 @@ CoverBackground {
         running: coverStatus.status === 2
         repeat: true
         onTriggered: {
-            var tmp = currentNowFile.read();
-            current = tmp.length > 0 ? tmp / 1e6 : current + 0.00001;
+            var currentFileTxt = currentNowFile.read();
+            current = currentFileTxt.length > 0 ? currentFileTxt / 1e6 : current + 0.00001;
 
-            tmp = voltageNowFile.read();
-            var voltage = tmp.length > 0 ? tmp / 1e6 : 1.111;
+            var voltageNowTxt = voltageNowFile.read();
+            var voltage = voltageNowTxt.length > 0 ? voltageNowTxt / 1e6 : 1.111;
             power = voltage * current;
 
-            tmp = capacityFile.read();
-            capacity = tmp.length > 0 ? tmp : 120;
+            var capacityTxt = capacityFile.read();
+            capacity = capacityTxt.length > 0 ? capacityTxt : 120;
 
-            tmp = statusFile.read();
-            var tmp2 = usbTypeFile.read();
+            var statusTxt = statusFile.read();
+            var usbTypeTxt = usbTypeFile.read();
+
             // "Unknown", "Charging", "Discharging", "Not charging", "Full"
-            status = tmp.length > 0 ? tmp === "Full" ? "Battery full" : tmp : "Simulated";
-            status2 = tmp2.length > 0 ?
-                         tmp2 === "USB" ?
-                             status === "Discharging" ? "USB power not used"
-                           : status === "Not charging" ? "USB powers phone only"
+            status = statusTxt.length > 0 ? statusTxt === "Full" ? "Battery full" : statusTxt : "Simulated";
+            status2 = usbTypeTxt.length > 0 ?
+                         usbTypeTxt === "USB" ?
+                             statusTxt === "Discharging" ? "USB power not used"
+                           : statusTxt === "Not charging" ? "USB powers phone only"
                            : ""
                        : "USB cable disconnected"
                    : "Simulated";
