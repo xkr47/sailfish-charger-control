@@ -43,6 +43,7 @@ CoverBackground {
     property double current: 1.111
     property double power: 1.222
     property double capacity: 110
+    property int dischargeSeconds: 0
 
     // mode management
 
@@ -127,15 +128,26 @@ CoverBackground {
             var statusTxt = statusFile.read();
             var usbTypeTxt = usbTypeFile.read();
 
-            // "Unknown", "Charging", "Discharging", "Not charging", "Full"
-            status = statusTxt.length > 0 ? statusTxt === "Full" ? "Battery full" : statusTxt : "Simulated";
-            status2 = usbTypeTxt.length > 0 ?
-                         usbTypeTxt === "USB" ?
-                             statusTxt === "Discharging" ? "USB power not used"
-                           : statusTxt === "Not charging" ? "USB powers phone only"
-                           : ""
-                       : "USB cable disconnected"
-                   : "Simulated";
+            if (usbTypeTxt === "USB") {
+                if (current > 0.05 && /Charging|Not charging|Full/.exec(statusTxt) !== null) {
+                    ++dischargeSeconds;
+                } else {
+                    dischargeSeconds = 0;
+                }
+                if (dischargeSeconds >= 6) {
+                    status = "Discharging slowly";
+                    status2 = "Phone uses all USB power";
+                } else {
+                    // statusTxt = "Unknown", "Charging", "Discharging", "Not charging", "Full"
+                    status = statusTxt.length > 0 ? statusTxt === "Full" ? "Battery full" : statusTxt : "Simulated";
+                    status2 = statusTxt === "Discharging" ? "USB power not used"
+                            : statusTxt === "Not charging" ? "USB powers phone only"
+                            : ""
+                }
+            } else {
+                status = "Discharging";
+                status2 = "USB cable disconnected";
+            }
         }
     }
 
