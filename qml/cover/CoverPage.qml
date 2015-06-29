@@ -62,11 +62,11 @@ CoverBackground {
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Property {
-            label: "Current:"
+            label: qsTr("Current:")
             value: current + " mA"
         }
         Property {
-            label: "Power:"
+            label: qsTr("Power:")
             value: power + " mW"
         }
     }

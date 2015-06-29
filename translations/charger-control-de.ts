@@ -4,31 +4,27 @@
 <context>
     <name>CoverPage</name>
     <message>
-        <source>My Cover</source>
-        <translation type="vanished">Mein Cover</translation>
-    </message>
-    <message>
         <source>Charger Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>off</source>
+        <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>phone only</source>
+        <source>Phone only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>charging</source>
+        <source>Charging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Current: 494mA</source>
+        <source>Current:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Power: 1974mW</source>
+        <source>Power:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
