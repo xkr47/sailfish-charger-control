@@ -33,7 +33,7 @@ import Sailfish.Silica 1.0
 
 // project imports
 import FileIO 1.0
-import CoverStatus 1.0
+import SystemStatus 1.0
 
 CoverBackground {
     id: cover
@@ -106,13 +106,13 @@ CoverBackground {
         onError: console.log("ERROR: charge_type: ", msg)
     }
 
-    CoverStatus {
-        id: coverStatus
+    SystemStatus {
+        id: systemStatus
     }
 
     Timer {
         interval: 1000
-        running: coverStatus.status === 2
+        running: systemStatus.coverStatus === 2 && systemStatus.displayStatus !== "off"
         repeat: true
         onTriggered: {
             var currentFileTxt = currentNowFile.read();

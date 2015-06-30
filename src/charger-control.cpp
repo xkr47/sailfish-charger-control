@@ -34,12 +34,12 @@
 
 #include <sailfishapp.h>
 #include "fileio.h"
-#include "coverstatus.h"
+#include "systemstatus.h"
 
 int main(int argc, char *argv[])
 {
     qmlRegisterType<FileIO>("FileIO", 1, 0, "FileIO");
-    qmlRegisterType<CoverStatus>("CoverStatus", 1, 0, "CoverStatus");
+    qmlRegisterType<SystemStatus>("SystemStatus", 1, 0, "SystemStatus");
 
     // SailfishApp::main() will display "qml/template.qml", if you need more
     // control over initialization, you can use:

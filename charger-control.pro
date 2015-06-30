@@ -16,11 +16,11 @@ CONFIG += sailfishapp
 
 SOURCES += src/charger-control.cpp \
     src/fileio.cpp \
-    src/coverstatus.cpp
+    src/systemstatus.cpp
 
 HEADERS += \
     src/fileio.h \
-    src/coverstatus.h
+    src/systemstatus.h
 
 OTHER_FILES += qml/charger-control.qml \
     qml/cover/CoverPage.qml \
