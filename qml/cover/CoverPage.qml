@@ -32,8 +32,8 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 // project imports
-import FileIO 1.0
-import SystemStatus 1.0
+import harbour.charger.control.FileIO 1.0
+import harbour.charger.control.SystemStatus 1.0
 
 CoverBackground {
     id: cover

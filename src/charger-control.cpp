@@ -38,8 +38,8 @@
 
 int main(int argc, char *argv[])
 {
-    qmlRegisterType<FileIO>("FileIO", 1, 0, "FileIO");
-    qmlRegisterType<SystemStatus>("SystemStatus", 1, 0, "SystemStatus");
+    qmlRegisterType<FileIO>("harbour.charger.control.FileIO", 1, 0, "FileIO");
+    qmlRegisterType<SystemStatus>("harbour.charger.control.SystemStatus", 1, 0, "SystemStatus");
 
     // SailfishApp::main() will display "qml/template.qml", if you need more
     // control over initialization, you can use:
