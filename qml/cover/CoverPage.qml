@@ -38,11 +38,11 @@ import harbour.charger.control.SystemStatus 1.0
 CoverBackground {
     id: cover
     property int mode: 0 + stateFile.read() // 0=off, 1=phone, 2=charge
-    property string status: "<charging?>"
-    property string status2: "<usbcable?>"
-    property double current: 1.111
-    property double power: 1.222
-    property double capacity: 110
+    property string status: "Unknown"
+    property string status2: ""
+    property double current: 0
+    property double power: 0
+    property double capacity: -1
     property int dischargeSeconds: 0
 
     // mode management
