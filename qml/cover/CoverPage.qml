@@ -109,15 +109,16 @@ CoverBackground {
     SystemStatus {
         id: systemStatus
         /*
-        onCoverStatusChanged: console.log(coverStatus, displayStatus, deviceLock);
-        onDisplayStatusChanged: console.log(coverStatus, displayStatus, deviceLock);
-        onDeviceLockChanged: console.log(coverStatus, displayStatus, deviceLock);
+        onCoverStatusChanged: console.log(coverStatus, displayStatus, deviceLock, coverVisible);
+        onDisplayStatusChanged: console.log(coverStatus, displayStatus, deviceLock, coverVisible);
+        onDeviceLockChanged: console.log(coverStatus, displayStatus, deviceLock, coverVisible);
+        onCoverVisibleChanged: console.log(coverStatus, displayStatus, deviceLock, coverVisible);
         */
     }
 
     Timer {
         interval: 1000
-        running: systemStatus.coverStatus === 2 && systemStatus.displayStatus !== "off" && systemStatus.deviceLock === 0
+        running: systemStatus.coverVisible
         //onRunningChanged: console.log(running ? "timer active" : "timer inactive")
         repeat: true
         onTriggered: {
