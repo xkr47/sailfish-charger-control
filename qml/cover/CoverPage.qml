@@ -128,24 +128,22 @@ CoverBackground {
             var statusTxt = statusFile.read();
             var usbTypeTxt = usbTypeFile.read();
 
-            if (/^USB/.exec(usbTypeTxt) !== null) {
-                if (current > 0.05 && /^(:Charging|Not charging|Full)$/.exec(statusTxt) !== null) {
-                    ++dischargeSeconds;
-                } else {
-                    dischargeSeconds = 0;
-                }
-                if (dischargeSeconds >= 6) {
-                    status = "Discharging slowly";
-                    status2 = "Phone uses all USB power";
-                } else {
-                    // statusTxt = "Unknown", "Charging", "Discharging", "Not charging", "Full"
-                    status = statusTxt.length > 0 ? statusTxt === "Full" ? "Battery full" : statusTxt : "Simulated";
-                    status2 = statusTxt === "Discharging" ? "USB power not used"
-                            : statusTxt === "Not charging" ? "USB powers phone only"
-                            : ""
-                }
+            if (current > 0.05 && /^(:Charging|Not charging|Full)$/.exec(statusTxt) !== null) {
+                ++dischargeSeconds;
             } else {
-                status = "Discharging";
+                dischargeSeconds = 0;
+            }
+            if (dischargeSeconds >= 6) {
+                status = "Discharging slowly";
+                status2 = "Phone uses all USB power";
+            } else {
+                // statusTxt = "Unknown", "Charging", "Discharging", "Not charging", "Full"
+                status = statusTxt.length > 0 ? statusTxt === "Full" ? "Battery full" : statusTxt : "Simulated";
+                status2 = statusTxt === "Discharging" ? "USB power not used"
+                        : statusTxt === "Not charging" ? "USB powers phone only"
+                        : ""
+            }
+            if (/^USB/.exec(usbTypeTxt) === null) {
                 status2 = "USB cable disconnected";
             }
         }
