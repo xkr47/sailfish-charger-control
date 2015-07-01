@@ -5,7 +5,7 @@ CHARGER_CONTROL_STATEFILE=/tmp/charger-control.state
 
 set -ex
 
-echo 2 > $CHARGER_CONTROL_STATEFILE
+[ -e $CHARGER_CONTROL_STATEFILE ] || echo 2 > $CHARGER_CONTROL_STATEFILE
 
 for i in \
   /sys/class/power_supply/usb/charger_disable \
