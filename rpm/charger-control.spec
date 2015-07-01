@@ -65,16 +65,13 @@ desktop-file-install --delete-original       \
 %pre
 # >> pre
 # see https://fedoraproject.org/wiki/Packaging:ScriptletSnippets
-# if upgrade, run before old package is uninstalled
-if [ $1 -eq 1 ] ; then
-# Initial installation
+# if upgrade, run before new package is installed and before old package is uninstalled
 grep "^charger-control:" /etc/group > /dev/null || groupadd charger-control
-fi
 # << pre
 
 %preun
 # >> preun
-# if upgrade, this is run after new package installation is complete
+# if upgrade, this is run after new package installation is complete but before old package is uninstalled
 # systemd parts taken partially from http://cgit.freedesktop.org/systemd/systemd/tree/src/core/macros.systemd.in
 if [ $1 -eq 0 ] ; then
 # Package removal, not upgrade
@@ -85,17 +82,20 @@ fi
 
 %post
 # >> post
-# if upgrade, run before old package is uninstalled
+# if upgrade, run after new package is installed but before old package is uninstalled
 if [ $1 -eq 1 ] ; then
 # Initial installation
 systemctl enable /usr/lib/systemd/user/charger-control-permissions.service
 systemctl start charger-control-permissions.service
+else
+# Package upgrade
+systemctl reenable /usr/lib/systemd/user/charger-control-permissions.service
 fi
 # << post
 
 %postun
 # >> postun
-# if upgrade, this is run after new package installation is complete
+# if upgrade, this is run after new package installation and old package uninstallation is complete
 systemctl daemon-reload >/dev/null 2>&1 || :
 if [ $1 -eq 0 ] ; then
 # Package removal, not upgrade
@@ -103,7 +103,7 @@ if [ $1 -eq 0 ] ; then
 fi
 if [ $1 -ge 1 ] ; then
 # Package upgrade, not uninstall
-systemctl try-restart charger-control-permissions.service || :
+systemctl restart charger-control-permissions.service || :
 fi
 # << postun
 
