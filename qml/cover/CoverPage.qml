@@ -108,11 +108,17 @@ CoverBackground {
 
     SystemStatus {
         id: systemStatus
+        /*
+        onCoverStatusChanged: console.log(coverStatus, displayStatus, deviceLock);
+        onDisplayStatusChanged: console.log(coverStatus, displayStatus, deviceLock);
+        onDeviceLockChanged: console.log(coverStatus, displayStatus, deviceLock);
+        */
     }
 
     Timer {
         interval: 1000
-        running: systemStatus.coverStatus === 2 && systemStatus.displayStatus !== "off"
+        running: systemStatus.coverStatus === 2 && systemStatus.displayStatus !== "off" && systemStatus.deviceLock === 0
+        //onRunningChanged: console.log(running ? "timer active" : "timer inactive")
         repeat: true
         onTriggered: {
             var currentFileTxt = currentNowFile.read();
