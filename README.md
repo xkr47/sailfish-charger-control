@@ -5,7 +5,7 @@
 Charger control is designed for the original Jolla Phone and allows you to control how the battery is charged/discharged when a USB cable is connected. The app gives you three options:
 
 * **CHARGE** - The battery is charged normally. This is the default after the phone is started or when the app is not installed.
-* **DO NOT CHARGE** - The battery is not charged. USB power is used to power the phone only. Using this you can keep your battery level at say 80% and still have it use USB power to power the phone.
+* **DO NOT CHARGE** - The battery is not charged. USB power is used to power the phone only. Using this you can keep your battery level at say 80% and still have it use USB power to power the phone. In this mode the phone funnily reports that the "charger is not working, try another charger", because the symptoms it sees are that the battery is not charging properly :)
 * **DISCHARGE** - USB power is not used at all. This is handy if you have the phone connected to a laptop without a charger and don't want to drain the laptop battery yet still want to communicate over USB.
 
 **NOTE:** This app has not been tested on any other Sailfish device than the original Jolla Phone. Use it at your own risk on other Sailfish devices. In fact, you use the program at your own risk on any device. The app uses low-level interfaces to control the charger on the device and obviously they have not been thoroughly tested by Jolla. I have however been using the app on my own phone for over a year and it has been working perfectly.
