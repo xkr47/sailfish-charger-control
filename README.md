@@ -24,6 +24,8 @@ Technical note: Because the hardware controls to control the charging are not ac
 
 The source code for the app is available on GitHub: https://github.com/xkr47/sailfish-charger-control/. Please file your issues, suggestions and pull requests there. General comments are also welcome and can be submitted via https://openrepos.net/content/xkr47/charger-control/. IRC support channel [#chargercontrol on freenode](http://webchat.freenode.net/?channels=%23chargercontrol).
 
+[![Flattr this!](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?fid=376v1j&url=https%3A%2F%2Fopenrepos.net%2Fcontent%2Fxkr47%2Fcharger-control "Flattr this!")
+
 ![screenshot1](screenshots/20160706120322.png)
 
 [More screenshots..](screenshots/)
