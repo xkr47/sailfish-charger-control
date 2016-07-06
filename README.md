@@ -23,3 +23,7 @@ The app has been written to use as little battery power itself as possible. I ha
 Technical note: Because the hardware controls to control the charging are not accessible to normal apps in current Sailfish OS releases, I had to write a systemd service that changes the permissions of the controls when the app is installed and when phone starts up. The permissions are set so that only Charger Control can access them, so it does not decrease security of those controls outside the Charger Control app. The app itself is run in "setgid" mode to give it permissions to the hardware controls. Due to these two special arrangements (systemd service + setgid) the app is not eligible for the Jolla Store. If at any point in the future Sailfish OS loosens the permissions of these hardware controls then these arrangements are no longer necessary and the app can be submitted to the store.
 
 The source code for the app is available on GitHub: https://github.com/xkr47/sailfish-charger-control/. Please file your issues, suggestions and pull requests there. General comments are also welcome and can be submitted via https://openrepos.net/content/xkr47/charger-control/. IRC support channel [#chargercontrol on freenode](http://webchat.freenode.net/?channels=%23chargercontrol).
+
+![screenshot1](screenshots/20160706120322.png)
+
+[More screenshots..](screenshots/)
