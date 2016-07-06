@@ -1,4 +1,4 @@
-;# Charger Control
+# Charger Control
 
 Charger control is designed for the original Jolla Phone and allows you to control how the battery is charged/discharged when a USB cable is connected. The app gives you three options:
 
