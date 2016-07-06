@@ -1,9 +1,9 @@
 * name: Charge Control
 * category: Applications > System
 * keywords: battery,battery charge,battery usage,charge,charging,battery monitor,Monitoring
-* icon: <256x256
-* description-html: file:README.html file:README.md
-* screenshots: file:charger-control.png
+* icon: file:charger-control.png
+* description: file:README.md
+* screenshots: file:screenshots
 * package
 * changelog: file:CHANGELOG
 * comments: yes
