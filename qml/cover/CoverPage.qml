@@ -187,11 +187,11 @@ CoverBackground {
         }
         Property {
             label: qsTr("Current:")
-            value: (current * 1e3).toFixed(2) + " mA"
+            value: (current * -1e3).toFixed(2) + " mA"
         }
         Property {
             label: qsTr("Power:")
-            value: (power * 1e3).toFixed(2) + " mW"
+            value: (power * -1e3).toFixed(2) + " mW"
         }
         Property {
             label: qsTr("Capacity:")
