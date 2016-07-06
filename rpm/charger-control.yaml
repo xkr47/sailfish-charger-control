@@ -33,7 +33,7 @@ PkgConfigBR:
 
 # Runtime dependencies which are not automatically detected
 Requires:
-  - sailfishsilica-qt5 >= 0.10.9 
+  - sailfishsilica-qt5 >= 0.10.9
 
 # All installed files
 Files:
@@ -43,7 +43,6 @@ Files:
   - '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
   - '%{_libdir}/systemd/user/charger-control-permissions.service'
   - '%{_libexecdir}/charger-control-permissions.sh'
-
 # For more information about yaml and what's supported in Sailfish OS
 # build system, please see https://wiki.merproject.org/wiki/Spectacle
 
