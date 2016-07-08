@@ -43,6 +43,9 @@ Files:
   - '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
   - '%{_libdir}/systemd/user/charger-control-permissions.service'
   - '%{_libexecdir}/charger-control-permissions.sh'
+# NOTE: setgid application!
+  - '%attr(2755, root, charger-control) %{_bindir}/%{name}'
+  - '%attr(700, root, root) %{_libexecdir}/%{name}-permissions.sh'
 # For more information about yaml and what's supported in Sailfish OS
 # build system, please see https://wiki.merproject.org/wiki/Spectacle
 

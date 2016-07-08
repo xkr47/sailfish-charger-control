@@ -115,8 +115,5 @@ fi
 %{_datadir}/icons/hicolor/86x86/apps/%{name}.png
 %{_libdir}/systemd/user/charger-control-permissions.service
 %{_libexecdir}/charger-control-permissions.sh
-# >> files
-# NOTE: setgid application!
 %attr(2755, root, charger-control) %{_bindir}/%{name}
 %attr(700, root, root) %{_libexecdir}/%{name}-permissions.sh
-# << files
