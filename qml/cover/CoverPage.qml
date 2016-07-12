@@ -44,6 +44,7 @@ CoverBackground {
     property double power: 0
     property double capacity: -1
     property int dischargeSeconds: 0
+    property int present: 1
 
     // mode management
 
@@ -72,6 +73,11 @@ CoverBackground {
         id: statusFile
         source: "/sys/devices/platform/msm_ssbi.0/pm8038-core/pm8921-charger/power_supply/battery/status"
         onError: console.log("ERROR: status: ", msg)
+    }
+    FileIO {
+        id: presentFile
+        source: "/sys/devices/platform/msm_ssbi.0/pm8038-core/pm8921-charger/power_supply/battery/present"
+        onError: console.log("ERROR: present: ", msg)
     }
     FileIO {
         id: usbTypeFile
@@ -105,23 +111,31 @@ CoverBackground {
             var capacityTxt = capacityFile.read();
             capacity = capacityTxt.length > 0 ? capacityTxt : 120;
 
+            var presentTxt = presentFile.read();
+            present = presentTxt.length > 0 ? presentTxt : 1;
+
             var statusTxt = statusFile.read();
             var usbTypeTxt = usbTypeFile.read();
 
-            if (current > 0.05 && /^(:Charging|Not charging|Full)$/.exec(statusTxt) !== null) {
-                ++dischargeSeconds;
+            if (!present) {
+                status = "No battery"
+                status2 = powerMode.mode == 2 ? "WARN: Charging enabled!!" : "Only USB powers phone"
             } else {
-                dischargeSeconds = 0;
-            }
-            if (dischargeSeconds >= 6) {
-                status = "Discharging slowly";
-                status2 = "Phone uses all USB power";
-            } else {
-                // statusTxt = "Unknown", "Charging", "Discharging", "Not charging", "Full"
-                status = statusTxt.length > 0 ? statusTxt === "Full" ? "Battery full" : statusTxt : "Simulated";
-                status2 = statusTxt === "Discharging" ? "USB power not used"
-                        : statusTxt === "Not charging" ? "USB powers phone only"
-                        : ""
+                if (current > 0.05 && /^(:Charging|Not charging|Full)$/.exec(statusTxt) !== null) {
+                    ++dischargeSeconds;
+                } else {
+                    dischargeSeconds = 0;
+                }
+                if (dischargeSeconds >= 6) {
+                    status = "Discharging slowly";
+                    status2 = "Phone uses all USB power";
+                } else {
+                    // statusTxt = "Unknown", "Charging", "Discharging", "Not charging", "Full"
+                    status = statusTxt.length > 0 ? statusTxt === "Full" ? "Battery full" : statusTxt : "Simulated";
+                    status2 = statusTxt === "Discharging" ? "USB power not used"
+                            : statusTxt === "Not charging" ? "USB powers phone only"
+                            : ""
+                }
             }
             if (/^USB/.exec(usbTypeTxt) === null) {
                 status2 = "USB cable disconnected";
@@ -155,7 +169,7 @@ CoverBackground {
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Image {
-            source: powerMode.mode == 0 ? "charger-control-off.png" : powerMode.mode == 1 ? "charger-control-nocharge.png" : "charger-control-charge.png"
+            source: !present ? powerMode.mode != 2 ? "charger-control-nobattery.png" : "charger-control-charge-nobattery.png" : powerMode.mode == 0 ? "charger-control-off.png" : powerMode.mode == 1 ? "charger-control-nocharge.png" : "charger-control-charge.png"
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Property {
@@ -174,7 +188,7 @@ CoverBackground {
 
     CoverActionList {
         id: coverListOff
-        enabled: powerMode.mode == 0
+        enabled: powerMode.mode == 0 && present
 
         CoverAction {
             iconSource: "charger-control-nocharge.png" // nocharge
@@ -188,7 +202,7 @@ CoverBackground {
     }
     CoverActionList {
         id: coverListNoCharge
-        enabled: powerMode.mode == 1
+        enabled: powerMode.mode == 1 && present
 
         CoverAction {
             iconSource: "charger-control-off.png" // off
@@ -202,7 +216,7 @@ CoverBackground {
     }
     CoverActionList {
         id: coverListCharge
-        enabled: powerMode.mode == 2
+        enabled: powerMode.mode == 2 && present
 
         CoverAction {
             iconSource: "charger-control-off.png" // off
@@ -211,6 +225,15 @@ CoverBackground {
 
         CoverAction {
             iconSource: "charger-control-nocharge.png" // nocharge
+            onTriggered: powerMode.mode = 1
+        }
+    }
+    CoverActionList {
+        id: coverListChargingMissingBattery
+        enabled: !present && powerMode.mode != 1
+
+        CoverAction {
+            iconSource: "charger-control-nobattery.png" // nocharge
             onTriggered: powerMode.mode = 1
         }
     }
