@@ -71,7 +71,7 @@ CoverBackground {
     FileIO {
         id: statusFile
         source: "/sys/devices/platform/msm_ssbi.0/pm8038-core/pm8921-charger/power_supply/battery/status"
-        onError: console.log("ERROR: charge_type: ", msg)
+        onError: console.log("ERROR: status: ", msg)
     }
     FileIO {
         id: usbTypeFile
